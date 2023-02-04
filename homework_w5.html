@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Homework Week 5</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" />
+  </head>
+  <body>
+    <div class="d-flex align-items-start m-2">
+      <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist">
+        <button class="nav-link active" id="v-pills-registrasi-tab" data-bs-toggle="pill" data-bs-target="#v-pills-registrasi" type="button" role="tab">Registrasi</button>
+        <button class="nav-link" id="v-pills-list-tab" data-bs-toggle="pill" data-bs-target="#v-pills-list" type="button" role="tab">List Peserta</button>
+      </div>
+      <div class="tab-content" id="v-pills-tabContent">
+        <div class="tab-pane fade show active" id="v-pills-registrasi" role="tabpanel" tabindex="0">
+          <form onsubmit="getDataInput(),generateElement(),average()">
+            <div><h1 class="text-danger" id="judul"></h1></div>
+            <div class="m-2">
+              <label for="inputNama" class="form-label">Nama</label>
+              <input type="text" class="form-control" id="inputNama" autocomplete="off" minlength="10" required />
+            </div>
+            <div class="m-2">
+              <label for="inputUmur" class="form-label">Umur</label>
+              <input type="number" class="form-control" id="inputUmur" autocomplete="off" min="25" required />
+            </div>
+            <div class="m-2">
+              <label for="inputUang" class="form-label">Uang Sangu</label>
+              <input type="number" class="form-control" id="inputUang" autocomplete="off" min="100000" max="1000000" required />
+            </div>
+            <input class="btn btn-primary" id="tombol" type="submit" value="Submit" />
+          </form>
+        </div>
+        <div class="tab-pane fade" id="v-pills-list" role="tabpanel" tabindex="0">
+          <table class="table bg-dark text-white">
+            <thead>
+              <tr>
+                <th scope="col">Nama</th>
+                <th scope="col">Umur</th>
+                <th scope="col">Uang Sangu</th>
+              </tr>
+            </thead>
+            <tbody id="list_peserta"></tbody>
+          </table>
+          <p id="resume"></p>
+        </div>
+      </div>
+    </div>
+    <script>
+      const pendaftar = [];
+      const nama_input = document.getElementById("inputNama");
+      const umur_input = document.getElementById("inputUmur");
+      const uang_input = document.getElementById("inputUang");
+
+      function getDataInput() {
+        event.preventDefault();
+        const data_pendaftar = { nama: nama_input.value, umur: umur_input.value, uang_sangu: uang_input.value };
+        pendaftar.push(data_pendaftar);
+      }
+
+      function generateElement() {
+        const tr = document.createElement("tr");
+        const td1 = document.createElement("td");
+        const td2 = document.createElement("td");
+        const td3 = document.createElement("td");
+        const value_td1 = document.createTextNode(nama_input.value);
+        const value_td2 = document.createTextNode(umur_input.value);
+        const value_td3 = document.createTextNode(uang_input.value);
+        tr.appendChild(td1);
+        tr.appendChild(td2);
+        tr.appendChild(td3);
+        td1.appendChild(value_td1);
+        td2.appendChild(value_td2);
+        td3.appendChild(value_td3);
+        document.getElementById("list_peserta").appendChild(tr);
+      }
+
+      function average() {
+        let sum_uang = 0;
+        let average_uang = 0;
+        let sum_umur = 0;
+        let average_umur = 0;
+
+        pendaftar.forEach((element) => {
+          sum_uang += +element.uang_sangu;
+        });
+
+        average_uang = sum_uang / pendaftar.length;
+
+        pendaftar.forEach((element) => {
+          sum_umur += +element.umur;
+        });
+
+        average_umur = sum_umur / pendaftar.length;
+
+        if (average_uang || average_umur > 0) {
+          document.getElementById("resume").innerHTML = "Rata-rata pendaftar memiliki uang sangu sebesar " + average_uang + " dengan rata rata umur " + average_umur;
+        }
+      }
+
+      function delayElement() {
+        const judul = document.getElementById("judul");
+        judul.textContent = "Homework Week 5";
+      }
+      setTimeout(delayElement, 1500);
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+  </body>
+</html>

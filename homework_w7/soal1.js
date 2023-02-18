@@ -1,4 +1,4 @@
-const { RumusPersegi, RumusPersegiPanjang } = require('./soal1_module');
+const { RumusPersegi, RumusPersegiPanjang } = require('./soal1_module.js');
 console.log(RumusPersegi);
 console.log(RumusPersegiPanjang);
 

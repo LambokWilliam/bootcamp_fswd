@@ -31,8 +31,6 @@ class RumusPersegiPanjang {
     this.sumLebar = 0;
     for (let i = 0; i < 2; i++) {
       this.sumPanjang += this.panjang;
-    }
-    for (let i = 0; i < 2; i++) {
       this.sumLebar += this.lebar;
     }
     return this.sumPanjang + this.sumLebar;

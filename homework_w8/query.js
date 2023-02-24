@@ -5,7 +5,7 @@ const router = express.Router();
 // Menampilkan data seluruh list film
 router.get('/film', (req, res) => {
   const findQuery = `
-        SELECT * FROM film_list
+        SELECT * FROM film
     `;
 
   pool.query(findQuery, (err, response) => {
@@ -22,8 +22,8 @@ router.get('/film/:id', (req, res) => {
   const findQuery = `
         SELECT 
             * 
-        FROM film_list
-            WHERE fid = $1
+        FROM film
+            WHERE film_id = $1
   `;
 
   pool.query(findQuery, [id], (err, response) => {
@@ -38,6 +38,7 @@ router.get('/category', (req, res) => {
   const findQuery = `
         SELECT * FROM category
     `;
+
   pool.query(findQuery, (err, response) => {
     if (err) throw err;
 
@@ -49,11 +50,14 @@ router.get('/category', (req, res) => {
 router.get('/filmbycategory', (req, res) => {
   const findQuery = `
         SELECT
-            film_list.category AS category,
-            film_list.title AS title
-        FROM
-            film_list
-        ORDER BY
+            category.name AS category,
+            film.title AS title
+        FROM film
+            INNER JOIN film_category
+                ON film.film_id = film_category.film_id
+            INNER JOIN category
+                ON category.category_id = film_category.category_id
+        ORDER BY 
             category ASC
     `;
 

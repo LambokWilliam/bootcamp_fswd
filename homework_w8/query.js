@@ -47,21 +47,23 @@ router.get('/category', (req, res) => {
 });
 
 // Menampilkan data list film berdasarkan category
-router.get('/filmbycategory', (req, res) => {
+router.get('/category/:category_name', (req, res) => {
+  const { category_name } = req.params;
   const findQuery = `
         SELECT
-            category.name AS category,
-            film.title AS title
-        FROM film
-            INNER JOIN film_category
-                ON film.film_id = film_category.film_id
-            INNER JOIN category
-                ON category.category_id = film_category.category_id
-        ORDER BY 
-            category ASC
+            *
+        FROM film_category fc
+            INNER JOIN category c
+                ON fc.category_id = c.category_id
+            INNER JOIN film f
+                ON fc.film_id = f.film_id
+            WHERE
+                c.name = $1
+            ORDER BY 
+                f.film_id ASC
     `;
 
-  pool.query(findQuery, (err, response) => {
+  pool.query(findQuery, [category_name], (err, response) => {
     if (err) throw err;
 
     res.status(200).json(response.rows);

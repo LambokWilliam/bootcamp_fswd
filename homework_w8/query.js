@@ -51,6 +51,7 @@ router.get('/category/:category_name', (req, res) => {
   const { category_name } = req.params;
   const findQuery = `
         SELECT
+<<<<<<< HEAD
             *
         FROM film_category fc
             INNER JOIN category c
@@ -61,6 +62,17 @@ router.get('/category/:category_name', (req, res) => {
                 c.name = $1
             ORDER BY 
                 f.film_id ASC
+=======
+            category.name AS category,
+            film.title AS title
+        FROM film
+            INNER JOIN film_category
+                ON film.film_id = film_category.film_id
+            INNER JOIN category
+                ON category.category_id = film_category.category_id
+        ORDER BY 
+            category ASC
+>>>>>>> 0bb52b8b733d1d8683a09b759d032903e8b1dd75
     `;
 
   pool.query(findQuery, [category_name], (err, response) => {

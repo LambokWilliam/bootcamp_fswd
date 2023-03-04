@@ -122,9 +122,7 @@ router.delete('/users/:id', authorization, (req, res, next) => {
         });
       });
     } else {
-      res.status(404).json({
-        message: 'User Not Found',
-      });
+      next({ name: 'ErrorNotFound' });
     }
   });
 });

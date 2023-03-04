@@ -117,9 +117,7 @@ router.delete('/movies/:id', authorization, (req, res, next) => {
         });
       });
     } else {
-      res.status(404).json({
-        message: 'Movie Not Found',
-      });
+      next({ name: 'ErrorNotFound' });
     }
   });
 });

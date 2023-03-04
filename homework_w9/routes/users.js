@@ -16,10 +16,10 @@ router.get('/users', authorization, (req, res, next) => {
         SELECT * FROM users
         LIMIT ${limitResult} OFFSET ${(pageResult - 1) * limitResult}
     `;
-  pool.query(findQuery, (err, response) => {
+  pool.query(findQuery, (err, result) => {
     if (err) next(err);
 
-    res.status(200).json(response.rows);
+    res.status(200).json(result.rows);
   });
 });
 
@@ -90,7 +90,7 @@ router.put('/users/:id', authorization, (req, res, next) => {
         WHERE id = $5
     `;
 
-  pool.query(updateQuery, [email, gender, password, role, id], (err, response) => {
+  pool.query(updateQuery, [email, gender, password, role, id], (err, result) => {
     if (err) next(err);
 
     res.status(200).json({
@@ -106,15 +106,15 @@ router.delete('/users/:id', authorization, (req, res, next) => {
         WHERE id = $1
     `;
 
-  pool.query(findQuery, [id], (err, response) => {
+  pool.query(findQuery, [id], (err, result) => {
     if (err) next(err);
 
-    if (response.rows[0]) {
+    if (result.rows[0]) {
       const deleteQuery = `
                 DELETE from users
                 WHERE id = $1
             `;
-      pool.query(deleteQuery, [id], (err, response) => {
+      pool.query(deleteQuery, [id], (err, result) => {
         if (err) next(err);
 
         res.status(200).json({

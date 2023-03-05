@@ -3,7 +3,7 @@ const app = express();
 const router = require('./routes/index.js');
 const errorHandler = require('./middlewares/errorhandler.js');
 const swaggerUi = require('swagger-ui-express');
-const moviesUsersJson = require('./movies-users.json');
+const moviesUsersJson = require('./movies_users.json');
 const morgan = require('morgan');
 
 app.use(morgan('tiny'));

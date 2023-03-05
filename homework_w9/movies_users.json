@@ -1,9 +1,9 @@
 {
   "openapi": "3.0.3",
-  "options": {
+  "Option": {
     "info": {
-      "title": "Movies API",
-      "description": "Movies API",
+      "title": "Movies and Users API",
+      "description": "Movies and Users API",
       "contact": {
         "email": "company@company.com"
       },
@@ -81,11 +81,21 @@
             }
           }
         }
-      },
+      }
+    },
+    "/movies/{movieId}": {
       "put": {
         "summary": "Update movie",
         "tags": ["movies"],
         "parameters": [
+          {
+            "name": "movieId",
+            "in": "path",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true
+          },
           {
             "name": "access_token",
             "in": "header",
@@ -123,6 +133,14 @@
         "tags": ["movies"],
         "parameters": [
           {
+            "name": "movieId",
+            "in": "path",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true
+          },
+          {
             "name": "access_token",
             "in": "header",
             "schema": {
@@ -143,9 +161,7 @@
             }
           }
         }
-      }
-    },
-    "/movies/{movieId}": {
+      },
       "get": {
         "summary": "Find movie by id",
         "tags": ["movies"],
@@ -246,11 +262,21 @@
             }
           }
         }
-      },
+      }
+    },
+    "/users/{userId}": {
       "put": {
         "summary": "Update user",
         "tags": ["users"],
         "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true
+          },
           {
             "name": "access_token",
             "in": "header",
@@ -288,6 +314,14 @@
         "tags": ["users"],
         "parameters": [
           {
+            "name": "userId",
+            "in": "path",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true
+          },
+          {
             "name": "access_token",
             "in": "header",
             "schema": {
@@ -308,9 +342,7 @@
             }
           }
         }
-      }
-    },
-    "/users/{userId}": {
+      },
       "get": {
         "summary": "Find user by id",
         "tags": ["users"],
@@ -386,8 +418,8 @@
             "example": "Male"
           },
           "password": {
-            "type": "integer",
-            "example": 123
+            "type": "string",
+            "example": "123asdf"
           },
           "role": {
             "type": "string",

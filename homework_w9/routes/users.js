@@ -83,12 +83,12 @@ router.put('/users/:id', authorization, (req, res, next) => {
 
   const updateQuery = `
         UPDATE users
-        SET email = $1
-            gender = $2
-            password = $3
+        SET email = $1,
+            gender = $2,
+            password = $3,
             role = $4
-        WHERE id = $5
-    `;
+        WHERE users.id = $5
+  `;
 
   pool.query(updateQuery, [email, gender, password, role, id], (err, result) => {
     if (err) next(err);
